@@ -128,8 +128,7 @@ body {
 	justify-content: center;
 	align-items: center;
 
-	width: 100%;
-	min-width: 640px;
+	width: clamp(240px, 100vw, 640px);
 	height: 100%;
 
 	z-index: 2;
@@ -138,10 +137,27 @@ body {
 }
 
 .gallery__art {
-	min-width: 640px;
-	max-width: calc(100vh - 96px);
-	height: 2400px;
-	max-height: calc(100vh - 96px);
+	width: clamp(240px, 100%, calc(100vh - 96px));
+	height: clamp(240px, 100%, calc(100vh - 96px));
+
+	object-fit: contain;
+	z-index: 3;
+	background: #0004;
+}
+	
+@media screen and (max-width: 480px) {
+	.gallery {
+		align-items: end;
+	}
+	
+	.gallery__art {
+		width: calc(100vh - 48px);
+		height: calc(100vh - 48px);
+	}
+}
+
+.gallery__art {
+
 
 	object-fit: contain;
 	z-index: 3;
