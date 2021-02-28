@@ -251,6 +251,43 @@ body {
 }
 </style>
 <title>Новости</title>
+<script>"use strict";
+	const run = () => {
+		const g = {
+			b: document.querySelector('.gallery'),
+			f: document.querySelector('.gallery__art')
+		}
+		
+		const fi = {
+			i: document.querySelectorAll('.content__article__files__img'),
+			d: document.querySelectorAll('.content__article__files__doc')
+		};
+		
+		for (const a of fi.i) {
+			a.addEventListener('click', () => {
+				g.b.style.display = 'flex';
+				g.f.src = a.dataset.src;
+			});
+		}
+		
+		for (const b of fi.d) {
+			b.addEventListener('click', () => {
+				const a = document.createElement('a');
+				a.src = b.dataset.href;
+				a.download = 'download';
+				a.click();
+			});
+		}
+		
+		g.f.onclick = e => e.stopPropagation();
+		g.b.onclick = e => {
+			g.b.removeAttribute('style');
+			g.f.src = '';
+		}
+	}
+	
+	document.addEventListener('DOMContentLoaded', run, {once: true});
+</script>
 </head>
 <body>
 	<div class="header">
@@ -260,13 +297,18 @@ body {
 	</div>
 	<div class="content">
 		<div class="content__article">
-			<div class="content__article__headline">С днём укротителя</div>
-			<div class="content__article__paragparh">Лев был приручен</div>
+			<div class="content__article__headline">Cras iaculis elit consectetur, sodales.</div>
+			<div class="content__article__paragparh">Suspendisse at turpis vitae tortor tempus cursus. Sed pellentesque viverra commodo. Integer sagittis in purus eu suscipit. Donec eu tortor at sapien interdum convallis. Curabitur ligula est, posuere eget vestibulum sit amet, pulvinar dictum orci. Nullam laoreet massa ac metus congue, a venenatis dui tempus. Ut molestie gravida odio non fringilla. Pellentesque tristique luctus dolor faucibus sodales. Sed arcu ligula, tristique vitae ultricies et, interdum et urna. In hac habitasse platea dictumst. Nullam interdum faucibus quam, id consequat nulla gravida non. Integer sit amet nulla et sapien ornare egestas. Proin ut mollis neque. Aliquam ultricies congue dolor eu venenatis.</div>
 			<div class="content__article__files">
 				<div class="content__article__files__doc" data-href=""></div>
 				<div class="content__article__files__img" data-src=""></div>
 			</div>
-			<div class="content__article__time">31.12.1999</div>
+			<div class="content__article__time">31.12.1999 23:59</div>
+		</div>
+		<div class="content__article">
+			<div class="content__article__headline">Lorem ipsum dolor sit.</div>
+			<div class="content__article__paragparh">Sed quis iaculis nunc. Etiam viverra interdum leo vel gravida. Integer eget vestibulum urna. Sed ex nibh, imperdiet ac volutpat vel, varius vel purus. Quisque ut placerat ipsum. Aliquam pharetra leo vitae tellus commodo, eget accumsan risus dignissim. Ut sagittis leo eget diam laoreet suscipit.</div>
+			<div class="content__article__time">04.12.1998 15:22</div>
 		</div>
 	</div>
 	<div class="gallery">
