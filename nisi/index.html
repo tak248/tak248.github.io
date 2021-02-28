@@ -136,29 +136,29 @@
 	</form>
 	<script>
 		function getSelectionPosition(p) {
-      const span = document.querySelector("span.hidden");
-      if (!span) {
-        span = document.createElement("span");
-        span.classList.add("hidden");
-        document.body.appendChild(span)
-      }
-      
-      const content = p.value.substring(0, p.selectionEnd);
-      const bef = content.substring(0, p.selectionStart).split("\r\n").join("<br>").split("\r").join("<br>").split("\n").join("<br>").split("<br>");
-      const last = bef.pop();
-      span.innerHTML = last;
-      const x = span.getBoundingClientRect().width;
-      span.innerHTML = bef.join("<br>");
-      const y = span.getBoundingClientRect().height;
-      span.innerHTML = content.substring(p.selectionStart).split("\r\n").join("<br>").split("\r").join("<br>").split("\n").join("<br>").split("<br>").filter(e=>{return(e!="")}).join("<br>");
-      if(bef.join("")!="")
-        span.innerHTML = last+span.innerHTML;
-      
-      const sizes = span.getBoundingClientRect();
-      span.remove();
-      
-      return({x: Math.round(x), y: Math.round(y), width: Math.round(sizes.width), height: Math.round(sizes.height)})
-    }
+		      let span = document.querySelector("span.hidden");
+		      if (!span) {
+			span = document.createElement("span");
+			span.classList.add("hidden");
+			document.body.appendChild(span)
+		      }
+
+		      const content = p.value.substring(0, p.selectionEnd);
+		      const bef = content.substring(0, p.selectionStart).split("\r\n").join("<br>").split("\r").join("<br>").split("\n").join("<br>").split("<br>");
+		      const last = bef.pop();
+		      span.innerHTML = last;
+		      const x = span.getBoundingClientRect().width;
+		      span.innerHTML = bef.join("<br>");
+		      const y = span.getBoundingClientRect().height;
+		      span.innerHTML = content.substring(p.selectionStart).split("\r\n").join("<br>").split("\r").join("<br>").split("\n").join("<br>").split("<br>").filter(e=>{return(e!="")}).join("<br>");
+		      if(bef.join("")!="")
+			span.innerHTML = last+span.innerHTML;
+
+		      const sizes = span.getBoundingClientRect();
+		      span.remove();
+
+		      return({x: Math.round(x), y: Math.round(y), width: Math.round(sizes.width), height: Math.round(sizes.height)})
+		    }
 
 		const hl_inp = document.querySelector(".headline.input");
 		const hl_pl = document.querySelector(".headline.placeholder");
