@@ -115,7 +115,9 @@ body {
 .content__award {
 	width: 100%;
 	height: 100%;
-
+	
+	object-fit: cover;
+	
 	background: #020202;
 }
 
@@ -185,7 +187,7 @@ body {
 		for (const a of c) {
 			a.addEventListener('click', () => {
 				g.b.style.display = 'flex';
-				g.f.src = a.dataset.src;
+				g.f.src = a.src;
 			});
 		}
 		
@@ -206,15 +208,10 @@ body {
 		<a class="header__child header__a header__a_news" href="https://tak248.github.io/leo"></a>
 	</div>
 	<div class="content">
-		<div class="content__award"></div>
-		<div class="content__award"></div>
-		<div class="content__award"></div>
-		<div class="content__award"></div>
-		<div class="content__award"></div>
-		<div class="content__award"></div>
-		<div class="content__award"></div>
-		<div class="content__award"></div>
-		<div class="content__award"></div>
+		<img class="content__award" src="https://interessno.ru/wp-content/uploads/2019/12/101139-vulkan-lava-atmosfera-oblako-stratovulkan-2560x1440-1.jpg">
+		<img class="content__award" src="https://im0-tub-ru.yandex.net/i?id=2539d9fa87ae4051869e29e464f9eb1a&n=13">
+		<img class="content__award" src="https://im0-tub-ru.yandex.net/i?id=b749b5ae1712a010f93d2421d815ce61&n=13">
+		<img class="content__award" src="https://cdn1.ozone.ru/multimedia/1023825167.jpg">
 	</div>
 	<div class="gallery">
 		<img src="" class="gallery__art">
