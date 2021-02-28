@@ -67,19 +67,15 @@
 				z-index: 1;
 			}
 
-			.header__child {
-				display: block;
-
-				margin: 0 1ex;
-
-				box-sizing: border-box;
-
-				font-size: 20px !important;
-			}
-
 			.header__a {
+				display: block;
+				
+				margin: 0 1ex;
 				padding: 1ex;
-
+				
+				box-sizing: border-box;
+				
+				font-size: 20px !important;
 				text-decoration: none;
 				color: inherit;
 			}
@@ -98,23 +94,6 @@
 				pointer-events: none;
 
 				color: var(--theme-c);
-			}
-
-			.header__theme {
-				border: 0;
-
-				width: 48px;
-				height: 48px;
-
-				cursor: pointer;
-			}
-
-			.header__theme_bright {
-				background: url("data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTYgMTYiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTggMTZhOCA4IDAgMTEwLTE2IDggOCAwIDAwOCA4IDggOCAwIDAxLTggOHoiIGZpbGw9IiNmYWQwMzgiPjwvcGF0aD48L3N2Zz4=") center / min(1.75ex, 32px) no-repeat;
-			}
-
-			.header__theme_dark {
-				background: url("data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTYgMTYiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTkgMWExIDEgMCAxMS0yIDAgMSAxIDAgMDEyIDB6bTMgN2E0IDQgMCAxMS04IDAgNCA0IDAgMDE4IDB6TTMuNzYgMi4zNGExIDEgMCAxMS0xLjQyIDEuNDIgMSAxIDAgMDExLjQyLTEuNDJ6TTEgN2ExIDEgMCAxMTAgMiAxIDEgMCAwMTAtMnptMS4zNCA1LjI0YTEgMSAwIDExMS40MiAxLjQyIDEgMSAwIDAxLTEuNDItMS40MnpNNyAxNWExIDEgMCAxMTIgMCAxIDEgMCAwMS0yIDB6bTUuMjQtMS4zNGExIDEgMCAxMTEuNDItMS40MiAxIDEgMCAwMS0xLjQyIDEuNDJ6TTE1IDlhMSAxIDAgMTEwLTIgMSAxIDAgMDEwIDJ6IiBmaWxsPSIjZmFkMDM4Ij48L3BhdGg+PC9zdmc+") center / min(3ex, 32px) no-repeat;
 			}
 
 			.content {
@@ -277,10 +256,9 @@
 			}
 		</style>
 		<div class="header">
-			<a class="header__child header__a header__a_about" href="#"></a>
-			<a class="header__child header__a header__a_awards header__a_selected" href="#"></a>
-			<a class="header__child header__a header__a_news" href="#"></a>
-			<button class="header__child header__theme"></button>
+			<a class="header__a header__a_about" href=""></a>
+			<a class="header__a header__a_awards" href=""></a>
+			<a class="header__a header__a_news" href=""></a>
 		</div>
 		<div class="content">
 			<div class="content__section content__section-info">
