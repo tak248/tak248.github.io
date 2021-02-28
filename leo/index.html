@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet">
+<style>
+@charset "UTF-8";
+
+:root {
+	font-size: 16px;
+	overflow-x: hidden;
+}
+
+* {
+	user-select: none;
+
+	padding: 0;
+	margin: 0;
+
+	font-family: 'Source Code Pro';
+
+	outline: none;
+}
+
+body {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+
+	top: 0;
+	left: 0;
+
+	width: 100vw;
+	height: 100vh;
+	box-sizing: border-box;
+
+	overflow: overlay;
+
+	background-color: #fff;
+	color: #080506;
+	
+	--theme-c: #1a4361;
+	--sec-c: #424242;
+	--vk-c: #e1e3e6;
+}
+
+.header {
+	position: fixed;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	margin: 0 auto;
+
+	height: 48px;
+	width: 640px;
+	box-sizing: border-box;
+
+	background: inherit;
+	z-index: 1;
+}
+
+.header__child {
+	display: block;
+
+	margin: 0 1ex;
+
+	box-sizing: border-box;
+
+	font-size: 20px !important;
+}
+
+.header__a {
+	padding: 1ex;
+
+	text-decoration: none;
+	color: inherit;
+}
+
+.header__a:hover:not(.selected) {
+	color: var(--theme-c);
+	opacity: .5;
+}
+
+.header__a_about:before {content: "Обо мне"}
+.header__a_awards:before {content: "Грамоты"}
+.header__a_news:before {content: "Новости"}
+
+.header__a_selected {
+	cursor: default;
+	pointer-events: none;
+
+	color: var(--theme-c);
+}
+
+.header__theme {
+	border: 0;
+
+	width: 48px;
+	height: 48px;
+
+	cursor: pointer;
+}
+
+.header__theme_bright {
+	background: url("data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTYgMTYiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTggMTZhOCA4IDAgMTEwLTE2IDggOCAwIDAwOCA4IDggOCAwIDAxLTggOHoiIGZpbGw9IiNmYWQwMzgiPjwvcGF0aD48L3N2Zz4=") center / min(1.75ex, 32px) no-repeat;
+}
+
+.header__theme_dark {
+	background: url("data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTYgMTYiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTkgMWExIDEgMCAxMS0yIDAgMSAxIDAgMDEyIDB6bTMgN2E0IDQgMCAxMS04IDAgNCA0IDAgMDE4IDB6TTMuNzYgMi4zNGExIDEgMCAxMS0xLjQyIDEuNDIgMSAxIDAgMDExLjQyLTEuNDJ6TTEgN2ExIDEgMCAxMTAgMiAxIDEgMCAwMTAtMnptMS4zNCA1LjI0YTEgMSAwIDExMS40MiAxLjQyIDEgMSAwIDAxLTEuNDItMS40MnpNNyAxNWExIDEgMCAxMTIgMCAxIDEgMCAwMS0yIDB6bTUuMjQtMS4zNGExIDEgMCAxMTEuNDItMS40MiAxIDEgMCAwMS0xLjQyIDEuNDJ6TTE1IDlhMSAxIDAgMTEwLTIgMSAxIDAgMDEwIDJ6IiBmaWxsPSIjZmFkMDM4Ij48L3BhdGg+PC9zdmc+") center / min(3ex, 32px) no-repeat;
+}
+
+.content {
+	position: relative;
+
+	top: 48px;
+
+	width: 640px;
+	height: max-content;
+
+	background: inherit;
+	box-sizing: border-box;
+}
+
+.content__article {
+	position: relative;
+
+	margin-top: 8px;
+	border: 1px solid #aaa4;
+	border-radius: 4px;
+	padding: 4px;
+
+	width: 100%;
+	height: auto;
+	box-sizing: border-box;
+}
+
+.content__article__headline {
+	font-weight: normal;
+	font-size: 1rem;
+}
+
+.content__article__paragparh {
+	margin-top: 2px;
+	font-size: 0.75rem;
+}
+
+.content__article__time {
+	margin-top: 4px;
+	border-top: 1px solid #aaa4;
+	padding-top: 4px;
+
+	width: 100%;
+	height: auto;
+
+	font-size: 0.625rem;
+	text-align: right;
+}
+
+.content__article__files {
+	display: flex;
+	flex: 1 0 32px;
+	flex-wrap: wrap;
+
+	margin-top: 4px;
+	border-top: 1px solid #aaa4;
+	padding-top: 4px;
+
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+}
+
+.content__article__files__img,
+.content__article__files__doc {
+	width: 48px;
+	height: 32px;
+	background: var(--theme-c);
+	box-sizing: border-box;
+	transition: opacity .25s ease 0s;
+}
+
+.content__article__files__img {
+	--mask: url("data:image/svg+xml, <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23ffffff'><path d='M2,5l0,6a3,3,0,0,0,3,3l6,0a3,3,0,0,0,3,-3l0,-6a3,3,0,0,0,-3,-3l-6,0a3,3,0,0,0,-3,3m1,8,3,-3,2,1.5,4,-4,2,1.5m-10,-4a1,1,0,1,0,2,0,1,1,0,1,0,-2,0'/></svg>");
+	-webkit-mask: var(--mask) center / 24px 24px no-repeat;
+	mask: var(--mask) center / 24px 24px no-repeat;
+}
+
+.content__article__files__doc {
+	--mask: url("data:image/svg+xml, <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' stroke-linecap='round' fill='none' stroke='%23ffffff'><path d='M2,5l0,6a3,3,0,0,0,3,3l6,0a3,3,0,0,0,3,-3l0,-6a3,3,0,0,0,-3,-3l-6,0a3,3,0,0,0,-3,3m3,0l6,0m-6,3l6,0m-6,3l6,0'/></svg>");
+	-webkit-mask: var(--mask) center / 24px 24px no-repeat;
+	mask: var(--mask) center / 24px 24px no-repeat;
+}
+
+.content__article__files:hover *:not(:hover) {
+	opacity: 0.2;
+}
+
+.gallery {
+	position: fixed;
+
+	display: none;
+	justify-content: center;
+	align-items: center;
+
+	width: 100%;
+	min-width: 640px;
+	height: 100%;
+
+	z-index: 2;
+	background: #000b;
+	backdrop-filter: blur(8px);
+}
+
+.gallery__art {
+	min-width: 640px;
+	max-width: calc(100vh - 96px);
+	height: 2400px;
+	max-height: calc(100vh - 96px);
+
+	object-fit: contain;
+	z-index: 3;
+	background: #0004;
+}
+
+.gallery__menu {
+	position: absolute;
+
+	width: 100%;
+	height: 100%;
+}
+
+.gallery__menu__button {
+	position: absolute;
+
+	right: 0;
+
+	width: 48px;
+	height: 48px;
+
+	stroke: #ffffff;
+	opacity: 0.5;
+	stroke-linecap: round;
+
+	transition: opacity .25s ease 0s;
+}
+
+.gallery:hover .gallery__art:not(:hover) + .gallery__menu > .gallery__menu__button {
+	opacity: 1;
+}
+</style>
+</head>
+<body>
+	<div class="header">
+		<a class="header__child header__a header__a_about" href="#"></a>
+		<a class="header__child header__a header__a_awards header__a_selected" href="#"></a>
+		<a class="header__child header__a header__a_news" href="#"></a>
+	</div>
+	<div class="content">
+		<div class="content__article">
+			<div class="content__article__headline">С днём укротителя</div>
+			<div class="content__article__paragparh">Лев был приручен</div>
+			<div class="content__article__files">
+				<div class="content__article__files__doc" data-href=""></div>
+				<div class="content__article__files__img" data-src=""></div>
+			</div>
+			<div class="content__article__time">31.12.1999</div>
+		</div>
+	</div>
+	<div class="gallery">
+		<img src="" class="gallery__art">
+		<div class="gallery__menu">
+			<div class="gallery__menu__button">
+				<svg viewBox="0 0 16 16">
+					<path d="M6,6l4,4m0-4l-4,4">
+				</svg>
+			</div>
+		</div>
+	</div>
+</body>
