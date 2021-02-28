@@ -173,6 +173,31 @@ body {
 }
 </style>
 <title>Галерея</title>
+<script>"use strict";
+	const run = () => {
+		const g = {
+			b: document.querySelector('.gallery'),
+			f: document.querySelector('.gallery__art')
+		}
+		
+		const c = document.querySelectorAll('.content__award');
+		
+		for (const a of c) {
+			a.addEventListener('click', () => {
+				g.b.style.display = 'flex';
+				g.f.src = a.dataset.src;
+			});
+		}
+		
+		g.f.onclick = e => e.stopPropagation();
+		g.b.onclick = e => {
+			g.b.removeAttribute('style');
+			g.f.src = '';
+		}
+	}
+	
+	document.addEventListener('DOMContentLoaded', run, {once: true});
+</script>
 </head>
 <body>
 	<div class="header">
