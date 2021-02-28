@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Создание новости</title>
+	<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 174.992'><path fill='%23040300' fill-rule='evenodd' d='M77.492,4.034C12.557,21.786-6.606,71.889,1.899,76.584c5.983,3.303,10.966-11.783,35.245-26.595-14.94,45.206-3.228,108.385,31.77,122.088,46.391,18.04,133.574-51.092,131.032-103.89C197.543,23.503,130.863-9.408,83.92,2.43l-.001-.012c-2.19.502-4.332,1.042-6.427,1.615zM172.605,80.527c1.902,39.495-63.313,91.207-98.016,77.712-34.799-13.623-38.826-92.647-6.154-118.55,32.672-25.906,102.044,1.31,104.171,40.837z'/></svg>">
+	<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet">
+	<style>
+		@charset "UTF-8";
+		
+		html {overflow: hidden}
+		* {font-family: 'Source Code Pro'}
+		
+		.form {
+			position: absolute;
+			margin: 0 auto;
+			top: 32px;
+			left: 0;
+			right: 0;
+			width: max-content;
+		}
+
+		.headline {
+			margin: 8px 0;
+			font-weight: normal;
+			white-space: nowrap;
+			font-size: 16px;
+		}
+		
+		.input {
+			display: block;
+			padding: 0;
+			height: auto;
+			min-height: 0;
+			outline: none;
+			border: none;
+			width: 497px;
+		}
+
+		.placeholders {
+			position: absolute;
+			right: 100%;
+			margin-right: 8px;
+			width: max-content;
+			height: auto;
+		}
+
+		.placeholder {
+			position: relative;
+			text-align: right;
+		}
+
+		.paragraph {
+			margin: 6px 0;
+			font-size: 13px;
+			resize: none;
+		}
+
+		.editors {
+			position: absolute;
+			display: flex;
+			flex-direction: row;
+			top: -1000px;
+			left: -1000px;
+			width: auto;
+			height: 32px;
+			background: #444;
+			border-radius: 8px;
+			overflow: hidden;
+			transition: opacity .25s ease 0s;
+			opacity: 0;
+		}
+
+		.editor {
+			position: relative;
+			width: 40px;
+			height: 32px;
+			box-sizing: border-box;
+		}
+
+		.editor:hover {background-color: #555}
+
+		.italic {
+			background: url("data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTIgMTQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTQgMHYzaDIuMjFsLTMuNDIgOEgwdjNoOHYtM0g1Ljc5bDMuNDItOEgxMlYweiIgZmlsbD0iI2FhYSI+PC9wYXRoPjwvc3ZnPg==") center / 14px 14px no-repeat;
+		}
+		.bold {
+			background: url("data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTAuOCAxNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNOC42MyA2LjhjLjk3LS42NyAxLjY1LTEuNzcgMS42NS0yLjc5IDAtMi4yNi0xLjc1LTQtNC00SC4wM3YxNGg3LjA0YzIuMDkgMCAzLjcxLTEuNyAzLjcxLTMuNzkgMC0xLjUyLS44Ni0yLjgyLTIuMTUtMy40MnptLTUuNi00LjI5aDNjLjgzIDAgMS41LjY3IDEuNSAxLjVzLS42NyAxLjUtMS41IDEuNWgtM3ptMy41IDloLTMuNXYtM2gzLjVjLjgzIDAgMS41LjY3IDEuNSAxLjVzLS42NyAxLjUtMS41IDEuNXoiIGZpbGw9IiNhYWEiPjwvcGF0aD48L3N2Zz4=") center / 14px 14px no-repeat;
+		}
+		.underlined {
+			background: url("data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTIgMTciIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTAgMHY4YzAgMy4zMSAyLjY5IDYgNiA2czYtMi42OSA2LTZWMEg5djhjMCAxLjY1LTEuMzQgMy0zIDNTMyA5LjY2IDMgOFYwek0wIDE0LjZ2MmgxMnYtMnoiIGZpbGw9IiNhYWEiPjwvcGF0aD48L3N2Zz4=") center 9px / 17px 17px no-repeat;
+		}
+
+		.hidden {
+			display: inline-block;
+			font-size: 13px;
+			visibility: hidden;
+			opacity: 0;
+		}
+
+		.file {margin-top: 32px}
+		.file__input {display: none}
+
+		.file,
+		.form__submit {
+			display: block;
+			padding: 4px 0;
+			font-size: 12px; 
+			width: max-content;
+			height: max-content;
+			user-select: none;
+			font-family: 'Rubik';
+			background: none;
+			border: 0;
+			color: #757575;
+			transition: color .25s ease 0s;
+			outline: none;
+			border-radius: 2px;
+		}
+
+		.form__submit:focus {background: #0002}
+	</style>
+</head>
+<body oncontextmenu="return false">
+	<form class="form" method="post" enctype="multipart/form-data">
+		<div class="placeholders">
+			<div class="headline placeholder" style="color:transparent">Название новости</div>
+			<div class="paragraph placeholder" style="color:transparent">Текст новости</div>
+		</div>
+		<input class="headline input" name="news_h1" type="text" placeholder="Название новости" autocomplete="off" required>
+		<textarea class="paragraph input" name="news_p" placeholder="Текст новости" style="height:15px" autocomplete="off"></textarea>
+		<label class="file">Выбрать файлы<input class="file__input" type="file" name="files[]" accept=".jpg,.png,.svg,.bmp,.doc,.docx,.xls,.xlsx,.ppt,.pptx" multiple></label>
+		<input class="form__submit" type="submit" value="Создать новость">
+		<div class="editors">
+			<div class="editor italic"></div>
+			<div class="editor bold"></div>
+			<div class="editor underlined"></div>
+		</div>
+	</form>
+	<script>
+		function getSelectionPosition(p) {
+      const span = document.querySelector("span.hidden");
+      if (!span) {
+        span = document.createElement("span");
+        span.classList.add("hidden");
+        document.body.appendChild(span)
+      }
+      
+      const content = p.value.substring(0, p.selectionEnd);
+      const bef = content.substring(0, p.selectionStart).split("\r\n").join("<br>").split("\r").join("<br>").split("\n").join("<br>").split("<br>");
+      const last = bef.pop();
+      span.innerHTML = last;
+      const x = span.getBoundingClientRect().width;
+      span.innerHTML = bef.join("<br>");
+      const y = span.getBoundingClientRect().height;
+      span.innerHTML = content.substring(p.selectionStart).split("\r\n").join("<br>").split("\r").join("<br>").split("\n").join("<br>").split("<br>").filter(e=>{return(e!="")}).join("<br>");
+      if(bef.join("")!="")
+        span.innerHTML = last+span.innerHTML;
+      
+      const sizes = span.getBoundingClientRect();
+      span.remove();
+      
+      return({x: Math.round(x), y: Math.round(y), width: Math.round(sizes.width), height: Math.round(sizes.height)})
+    }
+
+		const hl_inp = document.querySelector(".headline.input");
+		const hl_pl = document.querySelector(".headline.placeholder");
+		const p_inp = document.querySelector(".paragraph.input");
+		const p_pl = document.querySelector(".paragraph.placeholder");
+		const edit = document.querySelector(".editors");
+
+		document.onmousedown=e=>{
+			if(e.target.parentNode!=edit&&edit.style.top!="") {
+				edit.style.opacity=0;
+				setTimeout(()=>edit.removeAttribute("style"),250);
+			} else if(e.target.parentNode==edit) {
+				e.preventDefault();
+				if(p_inp.selectionStart!=-1&&p_inp.selectionEnd!=p_inp.selectionStart) {
+					var fs, mid;
+					if(e.target==document.querySelector(".editor.italic"))fs='i';
+					if(e.target==document.querySelector(".editor.bold"))fs='b';
+					if(e.target==document.querySelector(".editor.underlined"))fs='u';
+					sel=p_inp.value.substring(p_inp.selectionStart,p_inp.selectionEnd).split(`<${fs}>`).join("").split(`</${fs}>`).join("");
+					selO=p_inp.value.substring(p_inp.selectionStart,p_inp.selectionEnd).split(`<${fs}>`);
+					selC=p_inp.value.substring(p_inp.selectionStart,p_inp.selectionEnd).split(`</${fs}>`);
+					checkPrev=p_inp.value.substring(0,p_inp.selectionStart);
+					checkNext=p_inp.value.substring(p_inp.selectionEnd);
+					mid=(checkPrev.lastIndexOf(`<${fs}>`)!=-1)?(checkPrev.lastIndexOf(`<${fs}>`)>checkPrev.lastIndexOf(`</${fs}>`))?(checkNext.indexOf(`</${fs}>`)!=-1)?(checkNext.indexOf(`</${fs}>`)<checkNext.indexOf(`<${fs}>`)||checkNext.indexOf(`<${fs}>`)==-1)?sel:sel+`</${fs}>`:sel+`</${fs}>`:(checkNext.indexOf(`</${fs}>`)!=-1)?(checkNext.indexOf(`</${fs}>`)<checkNext.indexOf(`<${fs}>`)||checkNext.indexOf(`<${fs}>`)==-1)?`<${fs}>`+sel:`<${fs}>`+sel+`</${fs}>`:`<${fs}>`+sel+`</${fs}>`:(checkNext.indexOf(`</${fs}>`)!=-1)?(checkNext.indexOf(`</${fs}>`)<checkNext.indexOf(`<${fs}>`)||checkNext.indexOf(`<${fs}>`)==-1)?`<${fs}>`+sel:`<${fs}>`+sel+`</${fs}>`:(selO.length!=1)?(selO[0]!="")?`<${fs}>`+sel+`</${fs}>`:(selC.length!=1 && selC[selC.length-1]=="")?sel:`<${fs}>`+sel+`</${fs}>`:`<${fs}>`+sel+`</${fs}>`
+					var sStart=p_inp.selectionStart;
+					p_inp.value=`${checkPrev+mid+checkNext}`;
+					p_inp.focus();
+					p_inp.setSelectionRange(sStart,sStart+mid.length);
+				}
+			}
+		}
+		hl_inp.onkeydown=e=>{if(e.key=="Enter"||e.key=="ArrowDown"){e.preventDefault();p_inp.focus()}}
+		hl_inp.oninput=_=>{hl_inp.value!=""?hl_pl.style.color="#666":hl_pl.style.color="transparent"}
+		p_inp.onkeydown=e=>{if(e.key=="ArrowUp")if(p_inp.selectionStart<=p_inp.value.split("\r\n")[0].split("\r")[0].split("\n")[0].length){e.preventDefault();hl_inp.focus()}}
+		p_inp.oninput=_=>{p_inp.value!=""?p_pl.style.color="#666":p_pl.style.color="transparent";p_inp.style.height=0;p_inp.style.height=`${p_inp.scrollHeight}px`}
+    p_inp.onselect = e => {
+			const coords = getSelectionPosition(p_inp);
+			edit.style.cssText=`top:${p_inp.offsetTop+coords.y+coords.height+4}px;left:max(0px,${coords.x+(coords.width/2)-(edit.clientWidth/2)}px);opacity:1`
+		}
+		
+    document.onselectionchange = e => {
+			if((document.activeElement != p_inp) || (getSelection().toString().length == 0)) {
+				edit.style.opacity = 0;
+				setTimeout(() => edit.removeAttribute("style"), 250)
+			}
+		}
+	</script>
+</body>
+</html>
