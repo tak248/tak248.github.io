@@ -281,7 +281,7 @@ body {
 		for (const b of fi.d) {
 			b.addEventListener('click', () => {
 				const a = document.createElement('a');
-				a.src = b.dataset.href;
+				a.href = b.dataset.href;
 				a.download = 'download';
 				a.click();
 			});
